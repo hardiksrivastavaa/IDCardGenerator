@@ -62,37 +62,37 @@ const loadPhoto = () => {
     });
 };
 
-const generateQRCode = () => {
-    return new Promise((resolve) => {
-        const text = `Name: ${inputs.name.value}, Enroll: ${inputs.enrollment.value}, Program: ${inputs.program.value}`;
+// const generateQRCode = () => {
+//     return new Promise((resolve) => {
+//         const text = `Name: ${inputs.name.value}, Enroll: ${inputs.enrollment.value}, Program: ${inputs.program.value}`;
 
-        // Create hidden div for QR rendering
-        const tempDiv = document.createElement('div');
-        tempDiv.style.position = 'absolute';
-        tempDiv.style.left = '-9999px';
-        document.body.appendChild(tempDiv);
+//         // Create hidden div for QR rendering
+//         const tempDiv = document.createElement('div');
+//         tempDiv.style.position = 'absolute';
+//         tempDiv.style.left = '-9999px';
+//         document.body.appendChild(tempDiv);
 
-        // Generate QR
-        new QRCode(tempDiv, {
-            text,
-            width: 100,
-            height: 100,
-            correctLevel: QRCode.CorrectLevel.H
-        });
+//         // Generate QR
+//         new QRCode(tempDiv, {
+//             text,
+//             width: 100,
+//             height: 100,
+//             correctLevel: QRCode.CorrectLevel.H
+//         });
 
-        // Wait and extract QR base64
-        setTimeout(() => {
-            const img = tempDiv.querySelector('img') || tempDiv.querySelector('canvas');
-            if (img.tagName === 'IMG') {
-                preview.qr.src = img.src;
-            } else {
-                preview.qr.src = img.toDataURL('image/png');
-            }
-            document.body.removeChild(tempDiv);
-            resolve();
-        }, 500);
-    });
-};
+//         // Wait and extract QR base64
+//         setTimeout(() => {
+//             const img = tempDiv.querySelector('img') || tempDiv.querySelector('canvas');
+//             if (img.tagName === 'IMG') {
+//                 preview.qr.src = img.src;
+//             } else {
+//                 preview.qr.src = img.toDataURL('image/png');
+//             }
+//             document.body.removeChild(tempDiv);
+//             resolve();
+//         }, 500);
+//     });
+// };
 
 
 // ======= Event Listeners =======
@@ -104,14 +104,16 @@ form.addEventListener('submit', async (e) => {
     downloadButton.forEach(btn => btn.classList.remove('hidden'));
 
     fillCardDetails();
-    await Promise.all([loadPhoto(), generateQRCode()]);
+    // await Promise.all([loadPhoto(), generateQRCode()]);
+    await Promise.all([loadPhoto()]);
 });
 
 // ======= Download Functions =======
 
 const downloadCard = async () => {
     const name = preview.name.textContent;
-    await Promise.all([waitForImageLoad(preview.qr), waitForImageLoad(preview.photo)]);
+    // await Promise.all([waitForImageLoad(preview.qr), waitForImageLoad(preview.photo)]);
+    await Promise.all([waitForImageLoad(preview.photo)]);
     await new Promise(res => setTimeout(res, 300)); // small render buffer
 
     html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
@@ -124,7 +126,8 @@ const downloadCard = async () => {
 
 const downloadPDF = async () => {
     const name = preview.name.textContent;
-    await Promise.all([waitForImageLoad(preview.qr), waitForImageLoad(preview.photo)]);
+    await Promise.all([waitForImageLoad(preview.photo)]);
+    // await Promise.all([waitForImageLoad(preview.qr), waitForImageLoad(preview.photo)]);
     await new Promise(res => setTimeout(res, 300));
 
     html2canvas(card, { scale: 3 }).then(canvas => {
