@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student ID Card Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-6 font-Poppins">
+
+    <h1 class="text-3xl font-bold text-center mb-8">Student ID Card Generator</h1>
+    <div class="flex flex-wrap justify-center gap-8">
+
+        <!-- Form Section -->
+        <form id="cardForm" class="bg-white shadow-md border border-gray-300 rounded-xl p-6 w-full max-w-md">
+            <input type="text" id="name" placeholder="Full Name" class="w-full mb-4 p-2 border rounded" required />
+            <input type="text" id="fatherName" placeholder="Father's Name" class="w-full mb-4 p-2 border rounded" required />
+            <input type="text" id="enrollment" placeholder="Enrollment Number" class="w-full mb-4 p-2 border rounded" required />
+            <input type="text" id="program" placeholder="Programme Name" value="MCA: Master of Computer Applications" class="w-full mb-4 p-2 border rounded" required />
+            <input type="text" id="rcCode" placeholder="RC Code" class="w-full mb-4 p-2 border rounded" required />
+            <input type="text" id="address" placeholder="Address" class="w-full mb-4 p-2 border rounded" required />
+            <input type="text" id="pin" placeholder="PIN Code" class="w-full mb-4 p-2 border rounded" required />
+            <input type="file" id="photoInput" accept="image/*" class="w-full mb-4" required />
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">GenerateCard</button>
+        </form>
+
+        <!-- ID Card Preview Section -->
+        <div class="border-2 border-black h-[284px]">
+            <div id="idCard" class="relative w-[500px] h-[280px] bg-white shadow-md p-6">
+                <!-- IGNOU Logo -->
+                <img src="https://imgs.search.brave.com/qbRz6eSFwV4n8am2NNx7FGT980iWH4VI1aXcmcK1eBw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZnJlZWxvZ292ZWN0/b3JzLm5ldC9zdmcw/NS9JR05PVV9JbmRp/cmFfR2FuZGhpX05h/dGlvbmFsX09wZW5f/VW5pdmVyc2l0eV9s/b2dvLnN2Zw"
+                    alt="IGNOU Logo" class="absolute top-0 left-5 w-20" />
+
+                <h2 class="text-center text-lg font-semibold mb-4">IGNOU - Student ID Card</h2>
+
+                <div class="text-base mb-1">Name: <span id="cardName" class="font-medium">---</span></div>
+                <div class="text-base mb-1">Father's Name: <span id="cardFather" class="font-medium">---</span></div>
+                <div class="text-base mb-1">Enrollment No: <span id="cardEnroll" class="font-medium">---</span></div>
+                <div class="text-base mb-1">Programme: <span id="cardProgram" class="font-medium">---</span></div>
+                <div class="text-base mb-1">RC Code: <span id="cardRC" class="font-medium">---</span></div>
+                <div class="text-base mb-1">Address: <span id="cardAddress" class="font-medium">---</span></div>
+                <div class="text-base mb-1">PIN: <span id="cardPIN" class="font-medium">---</span></div>
+
+                <!-- Photos -->
+                <img id="cardPhoto" class="absolute top-4 right-4 w-[100px] h-[120px] object-cover border border-black rounded-xl" src="" alt="Photo" />
+                <img id="qrCode" class="absolute bottom-4 right-4 w-20 h-20 p-1 border border-black" src="" alt="QR Code" />
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex justify-center gap-4 mt-8">
+        <button onclick="downloadCard()" class="downloadBtn hidden bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">Download as Image</button>
+        <button onclick="downloadPDF()" class="downloadBtn hidden bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded">Download as PDF</button>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
